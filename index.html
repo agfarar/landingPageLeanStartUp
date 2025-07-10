@@ -412,17 +412,23 @@
     }
   </style>
   
-  <!-- Google Analytics Event Tracking -->
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7RXJJ7FE09"></script>
   <script>
-    // Simulación de Google Analytics para tracking
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-7RXJJ7FE09');
+  </script>
+  <!-- End Google Analytics -->
+  <!-- Google Analytics Event Tracking (custom events, optional) -->
+  <script>
     function trackEvent(eventName, eventData) {
-      console.log('Event tracked:', eventName, eventData);
-      // Aquí iría el código real de Google Analytics
-      // gtag('event', eventName, eventData);
+      if (typeof gtag === 'function') {
+        gtag('event', eventName, eventData);
+      }
     }
-    
     document.addEventListener('DOMContentLoaded', function() {
-      // Track CTA clicks
       document.querySelectorAll('.cta-primary, .cta-secondary').forEach(button => {
         button.addEventListener('click', function(e) {
           trackEvent('tour_click', {
@@ -636,10 +642,46 @@
     </div>
   </section>
   
+  <!-- Beta Signup Section -->
+  <section class="beta-signup-section" style="background: #fff; padding: 80px 0; border-top: 5px solid #764ba2;">
+    <div class="container">
+      <h2 style="text-align:center; font-size:2.2rem; color:#2d3748; margin-bottom:20px;">Regístrate para la Beta</h2>
+      <p style="text-align:center; font-size:1.15rem; color:#4a5568; margin-bottom:40px; max-width:600px; margin-left:auto; margin-right:auto;">
+        Sé de los primeros en probar el Tour Coach Gamificado y recibe acceso exclusivo a nuevas funciones. ¡Déjanos tu correo y te avisaremos cuando esté disponible!
+      </p>
+      <form id="beta-signup-form" style="max-width:420px; margin:0 auto; display:flex; flex-direction:column; gap:18px; background:#f7fafc; padding:32px 28px; border-radius:18px; box-shadow:0 4px 18px rgba(118,75,162,0.07);">
+        <input type="text" name="name" placeholder="Nombre" required style="padding:14px; border-radius:8px; border:1px solid #d1d5db; font-size:1rem;">
+        <input type="email" name="email" placeholder="Correo electrónico" required style="padding:14px; border-radius:8px; border:1px solid #d1d5db; font-size:1rem;">
+        <button type="submit" class="cta-primary" style="margin-top:10px;">Quiero Acceso Beta</button>
+        <div id="beta-signup-message" style="text-align:center; font-size:1rem; color:#764ba2; margin-top:10px; display:none;"></div>
+        <input type="hidden" name="_subject" value="Nuevo registro beta Tour Coach" />
+      </form>
+    </div>
+  </section>
+  
   <footer class="footer">
     <div class="container">
       <p>Proyecto Universidad de los Andes – Siigo UX | Diseñado para usuarios reales</p>
     </div>
   </footer>
+  <script>
+    // Formspree integration for beta signup
+    document.addEventListener('DOMContentLoaded', function() {
+      var form = document.getElementById('beta-signup-form');
+      var message = document.getElementById('beta-signup-message');
+      if(form) {
+        form.setAttribute('action', 'https://formspree.io/f/mnqewqzv'); // Cambia este endpoint por el tuyo si lo personalizas
+        form.setAttribute('method', 'POST');
+        form.addEventListener('submit', function(e) {
+          // Permite el envío normal del formulario (Formspree)
+          setTimeout(function() {
+            message.textContent = '¡Gracias por registrarte! Te avisaremos para la beta.';
+            message.style.display = 'block';
+            form.reset();
+          }, 500);
+        });
+      }
+    });
+  </script>
 </body>
 </html>
