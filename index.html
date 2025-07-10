@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tour Coach Gamificado - Domina la Analítica Predictiva en 5 Minutos</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      line-height: 1.6; 
+      color: #333; 
+      background: #f8fafc;
+    }
+    
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    
+    /* Header */
+    .header { 
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+      color: white; 
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    .hero { 
+      text-align: center; 
+      padding: 100px 0; 
+      position: relative;
+      z-index: 1;
+    }
+    
+    .hero-badge {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      display: inline-block;
+      backdrop-filter: blur(10px);
+    }
+    
+    .hero h1 { 
+      font-size: 3.5rem; 
+      margin-bottom: 20px; 
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .hero .subtitle { 
+      font-size: 1.4rem; 
+      margin-bottom: 15px; 
+      opacity: 0.95;
+    }
+    
+    .hero .description { 
+      font-size: 1.1rem; 
+      margin-bottom: 40px; 
+      opacity: 0.9;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .cta-primary { 
+      background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+      color: white; 
+      padding: 18px 40px; 
+      text-decoration: none; 
+      font-size: 1.2rem; 
+      border-radius: 50px; 
+      display: inline-block;
+      font-weight: 600;
+      box-shadow: 0 8px 25px rgba(255,107,107,0.3);
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .cta-primary:hover { 
+      transform: translateY(-3px); 
+      box-shadow: 0 12px 35px rgba(255,107,107,0.4);
+    }
+    
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      display: block;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    
+    /* Problem Section */
+    .problem-section {
+      background: #fff;
+      padding: 80px 0;
+      border-top: 5px solid #ff6b6b;
+    }
+    
+    .problem-content {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .problem-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      color: #2d3748;
+    }
+    
+    .problem-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+    }
+    
+    .problem-stat {
+      background: #f7fafc;
+      padding: 30px;
+      border-radius: 15px;
+      border-left: 4px solid #ff6b6b;
+    }
+    
+    .problem-stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #ff6b6b;
+    }
+    
+    .problem-stat-text {
+      font-size: 1.1rem;
+      color: #4a5568;
+      margin-top: 10px;
+    }
+    
+    /* Solution Section */
+    .solution-section {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+      padding: 80px 0;
+      position: relative;
+    }
+    
+    .solution-content {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .solution-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    
+    .solution-description {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto;
+      opacity: 0.95;
+    }
+    
+    .features-grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+      gap: 30px; 
+      margin-top: 60px;
+    }
+    
+    .feature-card { 
+      background: rgba(255,255,255,0.1); 
+      padding: 40px 30px; 
+      border-radius: 20px; 
+      text-align: center;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: transform 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-10px);
+    }
+    
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+    
+    .feature-card h3 { 
+      font-size: 1.5rem;
+      margin-bottom: 15px; 
+      font-weight: 600;
+    }
+    
+    .feature-card p { 
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    
+    /* Process Section */
+    .process-section {
+      background: #fff;
+      padding: 80px 0;
+    }
+    
+    .process-section h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 60px;
+      color: #2d3748;
+    }
+    
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .process-step {
+      text-align: center;
+      position: relative;
+    }
+    
+    .step-number {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 auto 20px;
+    }
+    
+    .step-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #2d3748;
+    }
+    
+    .step-description {
+      color: #4a5568;
+      line-height: 1.6;
+    }
+    
+    /* Testimonials */
+    .testimonials-section { 
+      background: #f7fafc; 
+      padding: 80px 0; 
+    }
+    
+    .testimonials-section h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 60px;
+      color: #2d3748;
+    }
+    
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .testimonial-card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      color: #4a5568;
+    }
+    
+    .testimonial-author {
+      font-weight: 600;
+      color: #2d3748;
+    }
+    
+    .testimonial-role {
+      color: #718096;
+      font-size: 0.9rem;
+    }
+    
+    .quote-icon {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 2rem;
+      color: #e2e8f0;
+    }
+    
+    /* CTA Section */
+    .cta-section { 
+      background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+      color: white;
+      text-align: center; 
+      padding: 80px 0; 
+      position: relative;
+    }
+    
+    .cta-section h2 { 
+      font-size: 2.5rem; 
+      margin-bottom: 20px; 
+    }
+    
+    .cta-section p {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      opacity: 0.9;
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .cta-secondary {
+      background: transparent;
+      color: white;
+      padding: 18px 40px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      border-radius: 50px;
+      border: 2px solid white;
+      display: inline-block;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .cta-secondary:hover {
+      background: white;
+      color: #2d3748;
+    }
+    
+    /* Footer */
+    .footer { 
+      background: #1a202c; 
+      color: white; 
+      text-align: center; 
+      padding: 40px 0; 
+    }
+    
+    .footer p {
+      opacity: 0.8;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.5rem; }
+      .hero .subtitle { font-size: 1.2rem; }
+      .hero-stats { gap: 20px; }
+      .stat-number { font-size: 2rem; }
+      .problem-section h2, .solution-section h2, .process-section h2, .testimonials-section h2, .cta-section h2 {
+        font-size: 2rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .hero { padding: 60px 0; }
+      .hero h1 { font-size: 2rem; }
+      .cta-primary { padding: 15px 30px; font-size: 1.1rem; }
+      .hero-stats { flex-direction: column; gap: 15px; }
+    }
+  </style>
+  
+  <!-- Google Analytics Event Tracking -->
+  <script>
+    // Simulación de Google Analytics para tracking
+    function trackEvent(eventName, eventData) {
+      console.log('Event tracked:', eventName, eventData);
+      // Aquí iría el código real de Google Analytics
+      // gtag('event', eventName, eventData);
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      // Track CTA clicks
+      document.querySelectorAll('.cta-primary, .cta-secondary').forEach(button => {
+        button.addEventListener('click', function(e) {
+          trackEvent('tour_click', {
+            'button_text': this.textContent,
+            'button_location': this.closest('section').className
+          });
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <section class="hero">
+        <div class="hero-badge">✨ Validado con 65% de usuarios completando el tour</div>
+        <h1>Domina la Analítica Predictiva</h1>
+        <p class="subtitle">Tour Coach Gamificado de <strong>5 minutos</strong></p>
+        <p class="description">
+          Aprende a usar reportes predictivos de flujo de caja con una guía interactiva, 
+          paso a paso y con recompensas. Sin miedo, sin complicaciones.
+        </p>
+        <a href="https://agfarar.github.io/pruebasLS/" class="cta-primary" id="hero-cta">
+          🚀 Iniciar Tour Coach
+        </a>
+        
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">65%</span>
+            <span class="stat-label">Completan el tour</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">5 min</span>
+            <span class="stat-label">Duración promedio</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Usuarios satisfechos</span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </header>
+  
+  <section class="problem-section">
+    <div class="container">
+      <div class="problem-content">
+        <h2>¿Te suena familiar?</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 40px; color: #4a5568;">
+          Como Laura, contadora de 40 años, conoces bien estos problemas:
+        </p>
+        
+        <div class="problem-stats">
+          <div class="problem-stat">
+            <div class="problem-stat-number">57%</div>
+            <div class="problem-stat-text">
+              "Desconozco la funcionalidad" de analítica predictiva
+            </div>
+          </div>
+          <div class="problem-stat">
+            <div class="problem-stat-number">100%</div>
+            <div class="problem-stat-text">
+              "Nunca vi un banner que diga 'Analítica Predictiva'"
+            </div>
+          </div>
+          <div class="problem-stat">
+            <div class="problem-stat-number">1x</div>
+            <div class="problem-stat-text">
+              mes es la frecuencia de uso del módulo predictivo
+            </div>
+          </div>
+        </div>
+        
+        <p style="font-size: 1.1rem; color: #4a5568; font-style: italic;">
+          "Si no me guían, no me atrevo a usar nuevas funciones por miedo a romper algo"
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <section class="solution-section">
+    <div class="container">
+      <div class="solution-content">
+        <h2>🎯 La Solución: Tour Coach Gamificado</h2>
+        <p class="solution-description">
+          Un recorrido interactivo diseñado específicamente para contadores y gerentes 
+          financieros que quieren dominar la analítica predictiva sin complicaciones.
+        </p>
+      </div>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <span class="feature-icon">🎮</span>
+          <h3>Gamificación Inteligente</h3>
+          <p>
+            Gana insignias y puntos por cada paso completado. 
+            Convierte el aprendizaje en una experiencia motivadora.
+          </p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">⚡</span>
+          <h3>Resultados en 5 Minutos</h3>
+          <p>
+            Tiempo promedio validado: 4 min 20 s. 
+            Aprende rápido y aplica inmediatamente.
+          </p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🛡️</span>
+          <h3>Entorno Seguro</h3>
+          <p>
+            Practica sin miedo a "romper datos". 
+            Guía paso a paso con ejemplos reales.
+          </p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">📊</span>
+          <h3>Reportes Listos</h3>
+          <p>
+            Genera tu primer reporte predictivo de flujo de caja 
+            listo para presentar a tu jefe.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="process-section">
+    <div class="container">
+      <h2>¿Cómo funciona?</h2>
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="step-number">1</div>
+          <div class="step-title">Activa el Módulo</div>
+          <div class="step-description">
+            Te guiamos para encontrar y activar la analítica predictiva en tu dashboard
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-number">2</div>
+          <div class="step-title">Configura Parámetros</div>
+          <div class="step-description">
+            Aprende a configurar las variables para tu flujo de caja predictivo
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-number">3</div>
+          <div class="step-title">Interpreta Resultados</div>
+          <div class="step-description">
+            Entiendes qué significan los datos y cómo usar las proyecciones
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-number">4</div>
+          <div class="step-title">Descarga Reporte</div>
+          <div class="step-description">
+            Obtienes tu primer reporte listo para presentar y tomar decisiones
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="testimonials-section">
+    <div class="container">
+      <h2>Lo que dicen nuestros usuarios</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="quote-icon">"</div>
+          <p class="testimonial-text">
+            "Me gusta el lenguaje corto y directo. La insignia final me motivó a terminar, ¡buen detalle!"
+          </p>
+          <div class="testimonial-author">Laura M.</div>
+          <div class="testimonial-role">Contadora, PYME Medellín</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="quote-icon">"</div>
+          <p class="testimonial-text">
+            "Nunca pensé que entendería estos reportes tan rápido. El tour se siente útil y no invasivo."
+          </p>
+          <div class="testimonial-author">Carlos R.</div>
+          <div class="testimonial-role">Gerente Financiero, Bogotá</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="quote-icon">"</div>
+          <p class="testimonial-text">
+            "Necesito que alguien me muestre qué hacer. Este tour es exactamente lo que buscaba."
+          </p>
+          <div class="testimonial-author">María G.</div>
+          <div class="testimonial-role">Directora Administrativa, Cali</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="cta-section">
+    <div class="container">
+      <h2>¿Listo para dominar la analítica predictiva?</h2>
+      <p>
+        Únete a los usuarios que ya transformaron su análisis financiero. 
+        Solo 5 minutos separan tu PYME de decisiones más inteligentes.
+      </p>
+      <div class="cta-buttons">
+        <a href="https://agfarar.github.io/pruebasLS/" class="cta-primary">
+          🚀 Iniciar Tour Coach Ahora
+        </a>
+        <a href="#" class="cta-secondary">
+          📹 Ver Demo del Tour
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <footer class="footer">
+    <div class="container">
+      <p>Proyecto Universidad de los Andes – Siigo UX | Diseñado para usuarios reales</p>
+    </div>
+  </footer>
+</body>
+</html>
